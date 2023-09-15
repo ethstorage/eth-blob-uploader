@@ -347,6 +347,14 @@ class Send4844Tx {
         }
         return txReceipt;
     }
+
+    getBlobHash(blob) {
+        const commit = blobToKzgCommitment(blob);
+        const localHash = commitmentsToVersionedHashes(commit);
+        const hash = new Uint8Array(32);
+        hash.set(localHash.subarray(0, 32 - 8));
+        return ethers.utils.hexlify(hash);
+    }
 }
 
 module.exports = {

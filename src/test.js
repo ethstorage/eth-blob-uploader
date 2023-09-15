@@ -25,7 +25,8 @@ const hexName = stringToHex(name);
 const contractAddress = '0x038dBAD58bdD56A2607D5CDf9a360D21E8F38F82'
 const contractABI = [
     'function read(bytes memory name) public view returns (bytes memory, bool)',
-    'function writeChunk(bytes memory name, uint256[] memory chunkIds, uint256[] memory sizes) public payable'
+    'function writeChunk(bytes memory name, uint256[] memory chunkIds, uint256[] memory sizes) public payable',
+    'function getChunkHash(bytes memory name, uint256 chunkId) public view returns (bytes32)',
 ]
 
 async function uploadFile() {
@@ -38,6 +39,10 @@ async function uploadFile() {
     const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-8.ethpandaops.io/', 'private key');
     const blobLength = blobs.length;
     for (let i = 0; i < blobLength; i += 2) {
+        const dataHash = await contract.getChunkHash(hexName, i);
+        const localHash = send4844Tx.getBlobHash(blobs[i]);
+        console.log(dataHash === localHash);
+
         let blobArr = [];
         let indexArr = [];
         let lenArr = [];
