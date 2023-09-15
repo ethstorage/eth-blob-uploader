@@ -2,17 +2,8 @@
   "name": "send-4844-tx",
   "version": "1.0.0",
   "description": "eip-4844 upload file",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.esm.js",
-  "typings": "lib/index.d.ts",
+  "main": "index.js",
   "mainEntryPointFilePath": "lib/index.d.ts",
-  "scripts": {
-    "rollup:dev": "rollup -c build/rollup/rollup.config.dev.js",
-    "rollup:build": "rimraf lib && rollup -c build/rollup/rollup.config.prod.js && rollup -c build/rollup/rollup.config.prod.uglify.js",
-    "build": "npm run rollup:build",
-    "pub:dev": "npm run rollup:build && npm publish --tag beta",
-    "pub": "npm run rollup:build && npm publish"
-  },
   "dependencies": {
     "@ethereumjs/common": "^4.0.0",
     "@ethereumjs/tx": "^5.0.0",
@@ -20,23 +11,20 @@
     "c-kzg": "^2.1.0",
     "ethers": "^5.6.7"
   },
-  "devDependencies": {
-    "typescript": "^5.1.6"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethstorage/kzg-demo.git"
+    "url": "git+https://github.com/ethstorage/SendEIP4844Tx.git"
   },
   "bugs": {
-    "url": "https://github.com/ethstorage/kzg-demo/issues"
+    "url": "https://github.com/ethstorage/SendEIP4844Tx/issues"
   },
-  "homepage": "https://github.com/ethstorage/kzg-demo/main/",
+  "homepage": "https://github.com/ethstorage/SendEIP4844Tx/main/",
   "keywords": [
-    "Eip4844",
+    "EIP4844",
     "eip-4844",
+    "Blobs",
     "File",
-    "Upload",
-    "blobs"
+    "Upload"
   ],
   "author": "ethsorage",
   "license": "ISC"

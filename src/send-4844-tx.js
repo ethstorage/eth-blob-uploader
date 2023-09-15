@@ -187,6 +187,7 @@ class Send4844Tx {
         this.#wallet = new ethers.Wallet(this.#privateKey, this.#provider);
 
         const SETUP_FILE_PATH = resolve(__dirname, "lib", "devnet6.txt");
+        console.log(SETUP_FILE_PATH);
         loadTrustedSetup(SETUP_FILE_PATH);
     }
 

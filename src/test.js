@@ -52,7 +52,7 @@ async function uploadFile() {
         }
 
         const tx = await contract.populateTransaction.writeChunk(hexName, indexArr, lenArr, {
-            value: 10000000000000000
+            value: 10
         });
         const hash = await send4844Tx.sendTx(blobArr, tx);
         console.log(hash);
