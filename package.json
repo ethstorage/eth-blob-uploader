@@ -1,6 +1,6 @@
 {
   "name": "send-4844-tx",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "eip-4844 upload file",
   "main": "index.js",
   "mainEntryPointFilePath": "lib/index.d.ts",

@@ -1,19 +1,12 @@
-import {
+const {
   Send4844Tx,
   EncodeBlobs,
   DecodeBlobs,
   DecodeBlob,
   BLOB_SIZE
-} from './src/send-4844-tx';
+} = require('./src/send-4844-tx');
 
-export {
-  Send4844Tx,
-  EncodeBlobs,
-  DecodeBlobs,
-  DecodeBlob,
-  BLOB_SIZE
-}
-export default {
+module.exports = {
   Send4844Tx,
   EncodeBlobs,
   DecodeBlobs,
