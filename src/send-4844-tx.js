@@ -140,9 +140,14 @@ function DecodeBlobs(blobs) {
 }
 
 function parseBigintValue(value) {
-    if (value && typeof value == 'object') {
-        const {_hex} = value;
-        return _hex;
+    if (value) {
+        if(typeof value == 'bigint') {
+            return '0x' + value.toString(16);
+        }
+        if (typeof value == 'object') {
+            const {_hex} = value;
+            return _hex;
+        }
     }
     return value;
 }
@@ -323,7 +328,7 @@ class Send4844Tx {
             {common}
         );
 
-        const pk = Buffer.from(this.#privateKey, "hex");
+        const pk = getBytes(this.#privateKey);
         const signedTx = unsignedTx.sign(pk);
         const rawData = signedTx.serializeNetworkWrapper();
 
