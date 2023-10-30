@@ -146,7 +146,8 @@ function parseBigintValue(value) {
         }
         if (typeof value == 'object') {
             const {_hex} = value;
-            return _hex;
+            const c = BigInt(_hex);
+            return '0x' + c.toString(16);
         }
     }
     return value;
@@ -191,7 +192,7 @@ class Send4844Tx {
         this.#provider = new ethers.providers.JsonRpcProvider(rpc);
         this.#wallet = new ethers.Wallet(this.#privateKey, this.#provider);
 
-        const SETUP_FILE_PATH = resolve(__dirname, "lib", "devnet6.txt");
+        const SETUP_FILE_PATH = resolve(__dirname, "lib", "trusted_setup.txt");
         console.log(SETUP_FILE_PATH);
         loadTrustedSetup(SETUP_FILE_PATH);
     }

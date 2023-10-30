@@ -460,10 +460,10 @@ brorand@^1.1.0:
   resolved "https://registry.npmjs.org/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha512-cKV8tMCEpQs4hK/ik71d6LrPOnpkpGBR0wzxqr68g2m/LB2GxVYQroAjMJZRVM1Y4BCjCKc3vAamxSzOY2RP+w==
 
-c-kzg@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/c-kzg/-/c-kzg-2.1.0.tgz#dee814329dc6386ee357b90dc4e43b5cb0e2eda5"
-  integrity sha512-6d8PdZ5YmYRi0n1h7hUxDftTl5FHItZ2VECyOTWhbQlb4izCAR1plpDUnoCAD8HN9yUo9lY/Y/+oge0KMG8VAA==
+c-kzg@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/c-kzg/-/c-kzg-2.1.2.tgz#355eca750c1b70398f533be5dd33e7ffbde005d8"
+  integrity sha512-QmP4vTp5H2hN4mkKXF9VXtZ7k7oH1kmBxLiFT/7LcyE78RgX32zvPGfwtRAsrq/b3T6RZFIsHZvQEN7JdzoNOg==
   dependencies:
     bindings "^1.5.0"
     node-addon-api "^5.0.0"
