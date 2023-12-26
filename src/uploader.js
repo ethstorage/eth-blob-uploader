@@ -11,12 +11,13 @@ const {
 
 const defaultAxios = require("axios");
 const axios = defaultAxios.create({
-    timeout: 30000,
+    timeout: 50000,
 });
 
 const BlobTxBytesPerFieldElement         = 32;      // Size in bytes of a field element
 const BlobTxFieldElementsPerBlob         = 4096;
-const BLOB_SIZE = BlobTxBytesPerFieldElement * BlobTxFieldElementsPerBlob
+const BLOB_SIZE = 32 * BlobTxFieldElementsPerBlob;
+const BLOB_FILE_SIZE = 31 * BlobTxFieldElementsPerBlob;
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -51,7 +52,7 @@ function getBytes(value) {
 function computeVersionedHash(commitment, blobCommitmentVersion) {
     const computedVersionedHash = new Uint8Array(32);
     computedVersionedHash.set([blobCommitmentVersion], 0);
-    const hash = getBytes(ethers.utils.sha256(commitment));
+    const hash = getBytes(ethers.sha256(commitment));
     computedVersionedHash.set(hash.subarray(1), 1);
     return computedVersionedHash;
 }
@@ -179,7 +180,14 @@ function parseBigintValue(value) {
 // }
 
 
-class Send4844Tx {
+function padHex(hex) {
+    if (typeof (hex) === "string" && !hex.startsWith("0x")) {
+        return "0x" + hex;
+    }
+    return hex;
+}
+
+class BlobUploader {
     #jsonRpc;
     #privateKey;
     #provider;
@@ -188,8 +196,8 @@ class Send4844Tx {
 
     constructor(rpc, pk) {
         this.#jsonRpc = rpc;
-        this.#privateKey = pk;
-        this.#provider = new ethers.providers.JsonRpcProvider(rpc);
+        this.#privateKey = padHex(pk);
+        this.#provider = new ethers.JsonRpcProvider(rpc);
         this.#wallet = new ethers.Wallet(this.#privateKey, this.#provider);
 
         const SETUP_FILE_PATH = resolve(__dirname, "lib", "trusted_setup.txt");
@@ -233,7 +241,7 @@ class Send4844Tx {
     }
 
     async getNonce() {
-        return await this.#wallet.getTransactionCount("pending");
+        return await this.#wallet.getNonce();
     }
 
     async getFee() {
@@ -241,21 +249,22 @@ class Send4844Tx {
     }
 
     async estimateGas(params) {
-        return await this.sendRpcCall("eth_estimateGas", [params]);
+        const limit = await this.sendRpcCall("eth_estimateGas", [params]);
+        if (limit) {
+            return BigInt(limit);
+        }
+        return null;
     }
 
-    async sendTx(blobs, tx) {
+    async sendTx(tx, blobs) {
         const chain = await this.getChainId();
 
         let {chainId, nonce, to, value, data, maxPriorityFeePerGas, maxFeePerGas, gasLimit, maxFeePerBlobGas} = tx;
         if (chainId == null) {
             chainId = chain;
         } else {
-            chainId = parseBigintValue(chainId);
-            if (ethers.utils.isHexString(chainId)) {
-                chainId = parseInt(chainId, 16)
-            }
-            if (chainId !== parseInt(chain, 16)) {
+            chainId = BigInt(chainId);
+            if (chainId !== BigInt(chain)) {
                 throw Error('invalid network id')
             }
         }
@@ -264,29 +273,30 @@ class Send4844Tx {
             nonce = await this.getNonce();
         }
 
-        value = value == null ? '0x0' : parseBigintValue(value);
+        value = value == null ? '0x0' : BigInt(value);
 
         if (gasLimit == null) {
-            const params = { from: this.#wallet.address, to, data, value };
+            const hexValue = parseBigintValue(value);
+            const params = { from: this.#wallet.address, to, data, value: hexValue };
             gasLimit = await this.estimateGas(params);
             if (gasLimit == null) {
                 throw Error('estimateGas: execution reverted')
             }
         } else {
-            gasLimit = parseBigintValue(gasLimit);
+            gasLimit = BigInt(gasLimit);
         }
 
         if (maxFeePerGas == null) {
             const fee = await this.getFee();
-            maxPriorityFeePerGas = fee.maxPriorityFeePerGas.toHexString();
-            maxFeePerGas = fee.maxFeePerGas.toHexString();
+            maxPriorityFeePerGas = fee.maxPriorityFeePerGas;
+            maxFeePerGas = fee.maxFeePerGas;
         } else {
-            maxFeePerGas = parseBigintValue(maxFeePerGas);
-            maxPriorityFeePerGas = parseBigintValue(maxPriorityFeePerGas);
+            maxFeePerGas = BigInt(maxFeePerGas);
+            maxPriorityFeePerGas = BigInt(maxPriorityFeePerGas);
         }
 
         // TODO
-        maxFeePerBlobGas = maxFeePerBlobGas == null ? 100000000 : parseBigintValue(maxFeePerBlobGas);
+        maxFeePerBlobGas = maxFeePerBlobGas == null ? 100000000n : BigInt(maxFeePerBlobGas);
 
         // blobs
         const commitments = [];
@@ -359,14 +369,15 @@ class Send4844Tx {
         const localHash = commitmentsToVersionedHashes(commit);
         const hash = new Uint8Array(32);
         hash.set(localHash.subarray(0, 32 - 8));
-        return ethers.utils.hexlify(hash);
+        return ethers.hexlify(hash);
     }
 }
 
 module.exports = {
-    Send4844Tx,
+    BlobUploader,
     EncodeBlobs,
     DecodeBlobs,
     DecodeBlob,
-    BLOB_SIZE
+    BLOB_SIZE,
+    BLOB_FILE_SIZE
 }

@@ -1,13 +1,13 @@
 const {
-  Send4844Tx,
+  BlobUploader,
   EncodeBlobs,
   DecodeBlobs,
   DecodeBlob,
   BLOB_SIZE
-} = require('./src/send-4844-tx');
+} = require('./src/uploader');
 
 module.exports = {
-  Send4844Tx,
+  BlobUploader,
   EncodeBlobs,
   DecodeBlobs,
   DecodeBlob,

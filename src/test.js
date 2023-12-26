@@ -1,9 +1,9 @@
-const {Send4844Tx, EncodeBlobs, DecodeBlobs, DecodeBlob, BLOB_SIZE} = require("./send-4844-tx");
+const {BlobUploader, EncodeBlobs, DecodeBlobs, BLOB_FILE_SIZE} = require("./uploader");
 const {ethers, Contract} = require("ethers");
 const fs = require('fs');
 const os = require('os');
 
-const stringToHex = (s) => ethers.utils.hexlify(ethers.utils.toUtf8Bytes(s));
+const stringToHex = (s) => ethers.hexlify(ethers.toUtf8Bytes(s));
 
 async function readFile(contract, name) {
     const result = await contract.read(name);
@@ -18,29 +18,29 @@ const saveFile = (data) => {
     return path;
 }
 
-const filePath = '/Users/Downloads/4.mp3';
+const filePath = '/Users/Downloads/2022517925387827.jpeg';
 const name = filePath.substring(filePath.lastIndexOf("/") + 1);
 const hexName = stringToHex(name);
 
-const contractAddress = '0x038dBAD58bdD56A2607D5CDf9a360D21E8F38F82'
+const contractAddress = '0x551908F183ADdC623d39e73B48AeDa4E34c3DcA2'
 const contractABI = [
     'function read(bytes memory name) public view returns (bytes memory, bool)',
     'function writeChunk(bytes memory name, uint256[] memory chunkIds, uint256[] memory sizes) public payable',
     'function getChunkHash(bytes memory name, uint256 chunkId) public view returns (bytes32)',
+    'function upfrontPayment() external view returns (uint256)',
 ]
 
 async function uploadFile() {
-    const provider = new ethers.providers.JsonRpcProvider('https://rpc.dencun-devnet-8.ethpandaops.io/');
+    const provider = new ethers.JsonRpcProvider('http://65.109.115.36:8545/');
     const contract = new Contract(contractAddress, contractABI, provider);
+    const blobUploader = new BlobUploader('http://65.109.115.36:8545/', 'private key');
 
     const content = fs.readFileSync(filePath);
     const blobs = EncodeBlobs(content);
-
-    const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-8.ethpandaops.io/', 'private key');
     const blobLength = blobs.length;
     for (let i = 0; i < blobLength; i += 2) {
         const dataHash = await contract.getChunkHash(hexName, i);
-        const localHash = send4844Tx.getBlobHash(blobs[i]);
+        const localHash = blobUploader.getBlobHash(blobs[i]);
         console.log(dataHash === localHash);
 
         let blobArr = [];
@@ -49,29 +49,31 @@ async function uploadFile() {
         if (i + 1 < blobLength) {
             blobArr = [blobs[i], blobs[i + 1]];
             indexArr = [i, i + 1];
-            lenArr = [BLOB_SIZE, BLOB_SIZE];
+            lenArr = [BLOB_FILE_SIZE, BLOB_FILE_SIZE];
         } else {
             blobArr = [blobs[i]];
             indexArr = [i];
-            lenArr = [BLOB_SIZE];
+            lenArr = [BLOB_FILE_SIZE];
         }
 
-        const tx = await contract.populateTransaction.writeChunk(hexName, indexArr, lenArr, {
-            value: 10
+        const cost = await contract.upfrontPayment();
+        const tx = await contract.writeChunk.populateTransaction(hexName, indexArr, lenArr, {
+            value: cost * BigInt(indexArr.length)
         });
-        const hash = await send4844Tx.sendTx(blobArr, tx);
+        const hash = await blobUploader.sendTx(tx, blobArr);
         console.log(hash);
-        const txReceipt = await send4844Tx.getTxReceipt(hash);
+        const txReceipt = await blobUploader.getTxReceipt(hash);
         console.log(txReceipt);
     }
 }
 
 async function read() {
     console.log(hexName);
-    const providerRead = new ethers.providers.JsonRpcProvider('http://65.109.63.154:9545');
+    const providerRead = new ethers.JsonRpcProvider('http://65.109.63.154:9545');
     const contractRead = new Contract(contractAddress, contractABI, providerRead);
     const blobs = await readFile(contractRead, hexName);
     console.log(blobs.length);
+
     const data = DecodeBlobs(blobs);
     const path = saveFile(data);
     console.log(path);
