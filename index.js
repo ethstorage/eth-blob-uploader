@@ -3,7 +3,8 @@ const {
   EncodeBlobs,
   DecodeBlobs,
   DecodeBlob,
-  BLOB_SIZE
+  BLOB_SIZE,
+  BLOB_FILE_SIZE
 } = require('./src/uploader');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
   EncodeBlobs,
   DecodeBlobs,
   DecodeBlob,
-  BLOB_SIZE
+  BLOB_SIZE,
+  BLOB_FILE_SIZE
 }

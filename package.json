@@ -1,7 +1,7 @@
 {
-  "name": "send-4844-tx",
-  "version": "1.0.7",
-  "description": "eip-4844 upload file",
+  "name": "4844-blob-uploader",
+  "version": "1.0.0",
+  "description": "eip-4844 blobs upload tool",
   "main": "index.js",
   "mainEntryPointFilePath": "lib/index.d.ts",
   "dependencies": {
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethstorage/SendEIP4844Tx.git"
+    "url": "git+https://github.com/ethstorage/4844-blob-uploader.git"
   },
   "bugs": {
-    "url": "https://github.com/ethstorage/SendEIP4844Tx/issues"
+    "url": "https://github.com/ethstorage/4844-blob-uploader/issues"
   },
-  "homepage": "https://github.com/ethstorage/SendEIP4844Tx/main/",
+  "homepage": "https://github.com/ethstorage/4844-blob-uploader/main/",
   "keywords": [
     "EIP4844",
     "eip-4844",

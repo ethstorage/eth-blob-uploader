@@ -1,48 +1,41 @@
 # Send EIP4844 Tx
-Eip4844 upload util.
+eip-4844 blobs upload tool.
 
 ## Installation
 
 With [npm](https://npmjs.org) do
 
 ```bash
-$ npm install send-4844-tx
+$ npm install 4844-blob-uploader
 ```
 
 
 ### Create And Send Tx
 ```js
-const contractAddress = '0x038dBAD58bdD56A2607D5CDf9a360D21E8F38F82'
+const contractAddress = '0x038dB...E8F38F82'
 const contractABI = [
-    'function writeChunk(bytes memory name, uint256[] memory chunkIds, uint256[] memory sizes) public payable'
+    'function writeChunk(bytes memory name) public payable'
 ]
-const provider = new ethers.providers.JsonRpcProvider('https://rpc.dencun-devnet-8.ethpandaops.io/');
+const provider = new ethers.providers.JsonRpcProvider('https://rpc.dencun-devnet-12.ethpandaops.io/');
 const contract = new Contract(contractAddress, contractABI, provider);
+
+// create tx
+const tx = await contract.populateTransaction.writeChunk(hexName, {
+    value: 10
+});
+
+...
 
 // read file and decode blobs
 const content = fs.readFileSync(filePath);
 const blobs = EncodeBlobs(content);
 
-// send blob
-const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-8.ethpandaops.io/', private key );
-const blobLength = blobs.length;
-for (let i = 0; i < blobLength; i += 2) {
-    // only 1~2 blob
-    let blobArr = [];
-    let indexArr = [];
-    let lenArr = [];
-    // blobArr = [blobs[i], blobs[i + 1]];
-    
-    ...
+...
 
-    // create tx
-    const tx = await contract.populateTransaction.writeChunk(hexName, indexArr, lenArr, {
-        value: 10
-    });
-    // send
-    const hash = await send4844Tx.sendTx(blobArr, tx);
-    console.log(hash);
-    const txReceipt = await send4844Tx.getTxReceipt(hash);
-    console.log(txReceipt);
-}
+// send blob
+const send4844Tx = new Send4844Tx('https://rpc.dencun-devnet-12.ethpandaops.io/', "private key");
+const hash = await send4844Tx.sendTx(tx, blobs);
+console.log(hash);
+const txReceipt = await send4844Tx.getTxReceipt(hash);
+console.log(txReceipt);
 ```
