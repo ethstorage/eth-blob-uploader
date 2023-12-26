@@ -331,7 +331,7 @@ class BlobUploader {
                 maxFeePerGas,
                 gasLimit,
                 maxFeePerBlobGas,
-                versionedHashes,
+                blobVersionedHashes: versionedHashes,
                 blobs,
                 kzgCommitments: commitments,
                 kzgProofs: proofs,

@@ -7,35 +7,35 @@
   resolved "https://registry.npmmirror.com/@adraffy/ens-normalize/-/ens-normalize-1.10.0.tgz#d2a39395c587e092d77cbbc80acf956a54f38bf7"
   integrity sha512-nA9XHtlAkYfJxY7bce8DcN7eKxWWCWkU+1GR9d+U6MbNpfwQp8TI7vqOsBsMcHoT4mBu2kypKoSKnghEzOOq5Q==
 
-"@ethereumjs/common@4.0.0", "@ethereumjs/common@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmmirror.com/@ethereumjs/common/-/common-4.0.0.tgz#da99cdc822041da02753867d4773683f91e5854f"
-  integrity sha512-eVa0/nC15mpotD8HOq6jB883SCWUkLjibr2jLPmPrx4FfmewXqFeh4drgR2sHjq3qWKxpCLK+5qsSJgtXwIzJQ==
+"@ethereumjs/common@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmmirror.com/@ethereumjs/common/-/common-4.1.0.tgz#0a959320a69bd2e3b194144b29c61b63bd6e2f6a"
+  integrity sha512-XWdQvUjlQHVwh4uGEPFKHpsic69GOsMXEhlHrggS5ju/+2zAmmlz6B25TkCCymeElC9DUp13tH5Tc25Iuvtlcg==
   dependencies:
-    "@ethereumjs/util" "^9.0.0"
+    "@ethereumjs/util" "^9.0.1"
     crc "^4.3.2"
 
-"@ethereumjs/rlp@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/@ethereumjs/rlp/-/rlp-5.0.0.tgz#dd81b32b2237bc32fb1b54534f8ff246a6c89d9b"
-  integrity sha512-WuS1l7GJmB0n0HsXLozCoEFc9IwYgf3l0gCkKVYgR67puVF1O4OpEaN0hWmm1c+iHUHFCKt1hJrvy5toLg+6ag==
+"@ethereumjs/rlp@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.npmmirror.com/@ethereumjs/rlp/-/rlp-5.0.1.tgz#56c5433b9242f956e354fd7e4ce3523815e24854"
+  integrity sha512-Ab/Hfzz+T9Zl+65Nkg+9xAmwKPLicsnQ4NW49pgvJp9ovefuic95cgOS9CbPc9izIEgsqm1UitV0uNveCvud9w==
 
-"@ethereumjs/tx@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.npmmirror.com/@ethereumjs/tx/-/tx-5.0.0.tgz#975f25a67ee35bee572ece1f99cd84c45f661eee"
-  integrity sha512-bJBC/jHVIbwvZBVsK0Ls70NzxJ8Q3UvPwskG1LO6+ryVGKY0y1bhRreo0/gR3vTkuRjD+x5QTYV6fIY16tswJA==
+"@ethereumjs/tx@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.npmmirror.com/@ethereumjs/tx/-/tx-5.1.0.tgz#c61a9048ec09fff360b18188224aae90c370e57f"
+  integrity sha512-VUhw2+4yXArJZRWhPjmZFrN4WUjUo0qUZUszVpW2KzsGlqCFf67kwJcH9Rca5eS0CRHjr2qHJLpvYOjNuaXVdA==
   dependencies:
-    "@ethereumjs/common" "^4.0.0"
-    "@ethereumjs/rlp" "^5.0.0"
-    "@ethereumjs/util" "^9.0.0"
+    "@ethereumjs/common" "^4.1.0"
+    "@ethereumjs/rlp" "^5.0.1"
+    "@ethereumjs/util" "^9.0.1"
     ethereum-cryptography "^2.1.2"
 
-"@ethereumjs/util@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/@ethereumjs/util/-/util-9.0.0.tgz#ac5945c629f3ab2ac584d8b12a8513e8eac29dc4"
-  integrity sha512-V8062I+ZXfFxtFLp7xsPeiT1IxDaVOZaM78nGj1gsWUFeZ8SgADMLDKWehp+muTy1JRbVoXFljZ1qoyv9ji/2g==
+"@ethereumjs/util@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.npmmirror.com/@ethereumjs/util/-/util-9.0.1.tgz#cbe0380981263451e3080ddcd74accf4b10f8723"
+  integrity sha512-NdFFEzCc3H1sYkNnnySwLg6owdQMhjUc2jfuDyx8Xv162WSluCnnSKouKOSG3njGNEyy2I9NmF8zTRDwuqpZWA==
   dependencies:
-    "@ethereumjs/rlp" "^5.0.0"
+    "@ethereumjs/rlp" "^5.0.1"
     ethereum-cryptography "^2.1.2"
 
 "@noble/curves@1.1.0", "@noble/curves@~1.1.0":
