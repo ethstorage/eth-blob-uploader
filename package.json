@@ -1,6 +1,6 @@
 {
-  "name": "4844-blob-uploader",
-  "version": "1.0.0",
+  "name": "@ethstorage/blob-uploader",
+  "version": "1.0.2",
   "description": "eip-4844 blobs upload tool",
   "main": "index.js",
   "mainEntryPointFilePath": "lib/index.d.ts",
