@@ -1,15 +1,16 @@
 {
-  "name": "@ethstorage/blob-uploader",
-  "version": "1.0.2",
+  "name": "blob-uploader",
+  "version": "1.0.1",
   "description": "eip-4844 blobs upload tool",
   "main": "index.js",
-  "mainEntryPointFilePath": "lib/index.d.ts",
+  "author": "ethstorage",
+  "license": "MIT",
   "dependencies": {
-    "@ethereumjs/common": "^4.1.0",
-    "@ethereumjs/tx": "^5.1.0",
-    "axios": "^1.4.0",
-    "c-kzg": "^2.1.2",
-    "ethers": "^6.9.1"
+    "colors-cli": "^1.0.33",
+    "ethers": "^6.9.1",
+    "ethstorage-sdk": "^1.0.2",
+    "minimist": "^1.2.8",
+    "uuid": "^9.0.1"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "File",
     "Upload"
   ],
-  "author": "ethsorage",
-  "license": "ISC"
+  "bin": {
+    "blob-uploader": "cli.js"
+  }
 }

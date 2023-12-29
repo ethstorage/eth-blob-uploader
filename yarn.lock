@@ -123,6 +123,11 @@ c-kzg@^2.1.2:
     bindings "^1.5.0"
     node-addon-api "^5.0.0"
 
+colors-cli@^1.0.33:
+  version "1.0.33"
+  resolved "https://registry.npmjs.org/colors-cli/-/colors-cli-1.0.33.tgz#22810216e3aaf726b821f6dd3a431a9340ae99cf"
+  integrity sha512-PWGsmoJFdOB0t+BeHgmtuoRZUQucOLl5ii81NBzOOGVxlgE04muFNHlR5j8i8MKbOPELBl3243AI6lGBTj5ICQ==
+
 combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -163,6 +168,17 @@ ethers@^6.9.1:
     tslib "2.4.0"
     ws "8.5.0"
 
+ethstorage-sdk@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.2.tgz#27a06a48d9ebdcb839535a83b0b3ce27f2d4876a"
+  integrity sha512-AIWMXWbIDGKJ3cTVw3DhZjpg/5lt8C2cDnQno8cBWE9tARI/DK6RN9AqQnXWYoPvCc8tWMuiG8tcoZejCXmAbQ==
+  dependencies:
+    "@ethereumjs/common" "^4.1.0"
+    "@ethereumjs/tx" "^5.1.0"
+    axios "^1.4.0"
+    c-kzg "^2.1.2"
+    ethers "^6.9.1"
+
 file-uri-to-path@1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
@@ -194,6 +210,11 @@ mime-types@^2.1.12:
   dependencies:
     mime-db "1.52.0"
 
+minimist@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
+
 node-addon-api@^5.0.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-5.1.0.tgz#49da1ca055e109a23d537e9de43c09cca21eb762"
@@ -208,6 +229,11 @@ tslib@2.4.0:
   version "2.4.0"
   resolved "https://registry.npmmirror.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
+
+uuid@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
+  integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
 ws@8.5.0:
   version "8.5.0"
