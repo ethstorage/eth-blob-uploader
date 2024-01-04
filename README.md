@@ -1,4 +1,4 @@
-# Update EIP4844 Blobs
+# Upload EIP4844 Blobs
 eip-4844 blobs upload tool.
 
 ## Installation
@@ -6,7 +6,7 @@ eip-4844 blobs upload tool.
 With [npm](https://npmjs.org) do
 
 ```bash
-$ npm install @ethstorage/blob-uploader
+$ npm install eth-blob-uploader
 ```
 
 
