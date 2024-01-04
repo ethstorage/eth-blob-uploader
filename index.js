@@ -1,10 +1,9 @@
-const {BlobUploader, EthStorage, EncodeBlobs} = require("ethstorage-sdk");
+const {BlobUploader, EthStorage, EncodeBlobs, BLOB_FILE_SIZE} = require("ethstorage-sdk");
 const {ethers} = require("ethers");
 const {v4: uuidv4} = require('uuid');
 const fs = require("fs");
 
 const color = require('colors-cli/safe')
-const {BLOB_FILE_SIZE} = require("ethstorage-sdk/src/blobs");
 const error = color.red;
 const notice = color.blue;
 
@@ -30,7 +29,7 @@ async function isFlatContract(rpc, to) {
   }
 }
 
-const uploadToAddress = async (rpc, privateKey, toAddress, filePath, data) => {
+const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data) => {
   data = data ?? "0x"
   if (!ethers.isHexString(data)) {
     console.log(error("Invalid data"));
@@ -56,7 +55,6 @@ const uploadToAddress = async (rpc, privateKey, toAddress, filePath, data) => {
     const tx = {
       to: toAddress,
       data: data,
-      gasLimit:  21000n,
     };
     const hash = await uploader.sendTx(tx, blobArr);
     console.log("Tx hash:", hash);
@@ -113,8 +111,8 @@ const uploadToEthStorage = async (rpc, privateKey, filePath) => {
   console.log(notice(`Total Blob Count: ${blobLength}`));
 }
 
-const uploadToFlatDirectory = async (rpc, privateKey, toAddress, filePath) => {
-  const ethStorage = new EthStorage(rpc, privateKey, toAddress??null);
+const uploadToFlatDirectory = async (rpc, privateKey, filePath, toAddress) => {
+  const ethStorage = new EthStorage(rpc, privateKey, toAddress ?? null);
   console.log("\nStart Send To FlatDirectory!")
 
   if (!toAddress) {

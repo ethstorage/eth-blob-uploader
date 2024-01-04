@@ -168,10 +168,10 @@ ethers@^6.9.1:
     tslib "2.4.0"
     ws "8.5.0"
 
-ethstorage-sdk@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.2.tgz#27a06a48d9ebdcb839535a83b0b3ce27f2d4876a"
-  integrity sha512-AIWMXWbIDGKJ3cTVw3DhZjpg/5lt8C2cDnQno8cBWE9tARI/DK6RN9AqQnXWYoPvCc8tWMuiG8tcoZejCXmAbQ==
+ethstorage-sdk@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.4.tgz#d8b76f0b79662ddd5bf83b963a0d7effbde87c7b"
+  integrity sha512-CGSkFE6XwvhzFx6PQ0HkyAiy4GcTBv65d2CowaxwqQ0kkMbNJv7PRGjLqg5346hVggsSW7m9H7ZLz1T5axQcnA==
   dependencies:
     "@ethereumjs/common" "^4.1.0"
     "@ethereumjs/tx" "^5.1.0"
