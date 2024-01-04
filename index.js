@@ -24,31 +24,47 @@ async function isFlatContract(rpc, to) {
     await fileContract.upfrontPayment();
     return true;
   } catch (e) {
-    console.log(e)
+    return false;
+  }
+}
+
+async function isContract(rpc, to) {
+  const provider = new ethers.JsonRpcProvider(rpc);
+  try {
+    const code = await provider.getCode(to);
+    return code.length > 5;
+  } catch (e) {
     return false;
   }
 }
 
 const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data) => {
-  data = data ?? "0x"
-  if (!ethers.isHexString(data)) {
-    console.log(error("Invalid data"));
-    return;
+  if (await isContract(rpc, toAddress)) {
+    if (!data) {
+      console.log(error("Contract calls must include the data parameter"));
+      return;
+    } else if (!ethers.isHexString(data)) {
+      console.log(error("Invalid data"));
+      return;
+    }
   }
 
+  data = data ?? "0x";
   const uploader = new BlobUploader(rpc, privateKey);
   const content = fs.readFileSync(filePath);
   const blobs = EncodeBlobs(content);
   const blobLength = blobs.length;
+  let currentIndex = 0;
   console.log("\nStart Send...")
   for (let i = 0; i < blobLength; i += MAX_BLOB_COUNT) {
     let max = i + MAX_BLOB_COUNT;
     if (max > blobLength) {
       max = blobLength;
     }
-
-    let blobArr = [];
+    const indexArr = [];
+    const blobArr = [];
     for (let j = i; j < max; j++) {
+      indexArr.push(j);
       blobArr.push(blobs[j]);
     }
 
@@ -56,17 +72,33 @@ const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data) => {
       to: toAddress,
       data: data,
     };
-    const hash = await uploader.sendTx(tx, blobArr);
-    console.log("Tx hash:", hash);
-    const txReceipt = await uploader.getTxReceipt(hash);
-    if (txReceipt.status) {
-      console.log(`Blob Send Success: (${i} , ${max - 1}]`);
-    } else {
-      console.log(error(`Blob Send Fail: (${i} , ${max - 1}]`));
+    let isSuccess = true;
+    try {
+      const hash = await uploader.sendTx(tx, blobArr);
+      console.log("Tx hash:", hash);
+      const txReceipt = await uploader.getTxReceipt(hash);
+      if (txReceipt.status) {
+        currentIndex += blobArr.length;
+        console.log(`Blob index: ${indexArr} uploaded!`);
+      } else {
+        isSuccess = false;
+      }
+    } catch (e) {
+      isSuccess = false;
+    }
+
+    if (!isSuccess) {
       break;
     }
   }
-  console.log(notice(`Total Blob Count: ${blobLength}`));
+
+  console.log(notice("Total number of blobs:"), error(`${blobLength}`));
+  console.log(notice("Quantity uploaded this time:"), error(`${currentIndex}`));
+  if (blobLength > currentIndex) {
+    console.log(notice("The remaining amount:"), error(`${blobLength - currentIndex}`));
+  } else {
+    console.log(notice(`File upload completed!!!`));
+  }
 }
 
 const uploadToEthStorage = async (rpc, privateKey, filePath) => {
@@ -87,6 +119,7 @@ const uploadToEthStorage = async (rpc, privateKey, filePath) => {
   const blobs = EncodeBlobs(content);
   const blobLength = blobs.length;
   const fileSize = fileStat.size;
+  let currentIndex = 0;
   for (let i = 0; i < blobLength; i++) {
     const key = ethers.keccak256(ethers.toUtf8Bytes(uuidv4()));
     let chunkSize = BLOB_FILE_SIZE;
@@ -95,20 +128,36 @@ const uploadToEthStorage = async (rpc, privateKey, filePath) => {
     }
 
     // send
-    const tx = await fileContract.putBlob.populateTransaction(key, 0, chunkSize, {
-      value: cost
-    });
-    const hash = await uploader.sendTx(tx, [blobs[i]]);
-    console.log(`Transaction Id: ${hash}`);
-    const txReceipt = await uploader.getTxReceipt(hash);
-    if (txReceipt.status) {
-      console.log(`Blob Send Success: index=${i}, key=${key}`);
-    } else {
-      console.log(error(`Blob Send Fail: ${i}`));
+    let isSuccess = true;
+    try {
+      const tx = await fileContract.putBlob.populateTransaction(key, 0, chunkSize, {
+        value: cost
+      });
+      const hash = await uploader.sendTx(tx, [blobs[i]]);
+      console.log(`Transaction Id: ${hash}`);
+      const txReceipt = await uploader.getTxReceipt(hash);
+      if (txReceipt.status) {
+        currentIndex++;
+        console.log(`Blob Send Success: blob key=${key}`);
+      } else {
+        console.log(error(`Blob Send Fail: ${i}`));
+        isSuccess = false;
+      }
+    } catch (e) {
+      isSuccess = false;
+    }
+    if (!isSuccess) {
       break;
     }
   }
-  console.log(notice(`Total Blob Count: ${blobLength}`));
+
+  console.log(notice("Total number of blobs:"), error(`${blobLength}`));
+  console.log(notice("Quantity uploaded this time:"), error(`${currentIndex}`));
+  if (blobLength > currentIndex) {
+    console.log(notice("The remaining amount:"), error(`${blobLength - currentIndex}`));
+  } else {
+    console.log(notice(`File upload completed!!!`));
+  }
 }
 
 const uploadToFlatDirectory = async (rpc, privateKey, filePath, toAddress) => {
@@ -126,7 +175,15 @@ const uploadToFlatDirectory = async (rpc, privateKey, filePath, toAddress) => {
   }
 
   const result = await ethStorage.upload(filePath);
-  console.log(notice(`Total Blob Count: ${result.totalBlobCount}`));
+  if (result) {
+    console.log(notice("Total number of blobs:"), error(`${result.totalBlobCount}`));
+    console.log(notice("Quantity uploaded this time:"), error(`${result.uploadCount}`));
+    if (result.totalBlobCount > result.successBlobIndex) {
+      console.log(notice("The remaining amount:"), error(`${result.totalBlobCount - result.successBlobIndex}`));
+    } else {
+      console.log(notice(`Upload completed!!!`));
+    }
+  }
 }
 // **** function ****
 
