@@ -168,10 +168,10 @@ ethers@^6.9.1:
     tslib "2.4.0"
     ws "8.5.0"
 
-ethstorage-sdk@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.7.tgz#704277919c0790c8fe39ceca11df4ad89b42f579"
-  integrity sha512-wdQiFa51vjNFKpBPWCFdJRMmC0EDHPLOayEgwqyRLiaOlxLTWnNq5Apt7FsKxUTC8fgBV3dosQQm6SX2gTY7Gw==
+ethstorage-sdk@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.8.tgz#a871e0cb13974b99a380076dfc3c1dcceaeb6942"
+  integrity sha512-SqHlTo7yJF70Zh4vxnTvrGDrrqd4pEKB7c/Ccdgw7jCEtevOa9DoIWgppPtILJoSk4WUokvATYriSRspM7uooA==
   dependencies:
     "@ethereumjs/common" "^4.1.0"
     "@ethereumjs/tx" "^5.1.0"
@@ -229,11 +229,6 @@ tslib@2.4.0:
   version "2.4.0"
   resolved "https://registry.npmmirror.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
-
-uuid@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
-  integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
 ws@8.5.0:
   version "8.5.0"
