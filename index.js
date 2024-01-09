@@ -5,7 +5,8 @@ const fs = require("fs");
 const color = require('colors-cli/safe')
 const error = color.red;
 const notice = color.blue;
-const MAX_BLOB_COUNT = 3;
+const MAX_BLOB_COUNT = 6;
+const DEFAULT_COUNT = 3;
 
 const flatDirectoryBlobAbi = [
   "function upfrontPayment() external view returns (uint256)"
@@ -31,7 +32,7 @@ async function isContract(rpc, to) {
   }
 }
 
-const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x", count = MAX_BLOB_COUNT) => {
+const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x", count = DEFAULT_COUNT) => {
   if (!ethers.isHexString(data)) {
     console.log(error("Invalid data"));
     return;
@@ -48,8 +49,8 @@ const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x"
   }
 
   count = Number(count);
-  if (count < 0 || MAX_BLOB_COUNT < count) {
-    count = MAX_BLOB_COUNT;
+  if (count <= 0 || count > MAX_BLOB_COUNT) {
+    count = DEFAULT_COUNT;
   }
 
   const content = fs.readFileSync(filePath);
