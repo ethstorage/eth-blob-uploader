@@ -33,6 +33,13 @@ async function isContract(rpc, to) {
 }
 
 const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x", count = DEFAULT_COUNT) => {
+  console.log(notice(`rpc=${rpc}`));
+  console.log(notice(`privateKey=${privateKey}`));
+  console.log(notice(`filePath=${filePath}`));
+  console.log(notice(`toAddress=${toAddress}`));
+  console.log(notice(`calldata=${data}`));
+  console.log(notice(`count=${count}\n`));
+
   if (!ethers.isHexString(data)) {
     console.log(error("Invalid data"));
     return;
@@ -59,7 +66,7 @@ const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x"
 
   const uploader = new BlobUploader(rpc, privateKey);
   let currentIndex = 0;
-  console.log("\nStart Send...")
+  console.log("Start Send...")
   for (let i = 0; i < blobLength; i += count) {
     let max = i + count;
     if (max > blobLength) {

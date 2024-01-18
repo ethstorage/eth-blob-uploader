@@ -135,6 +135,11 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-11.1.0.tgz#62fdce76006a68e5c1ab3314dc92e800eb83d906"
+  integrity sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==
+
 crc@^4.3.2:
   version "4.3.2"
   resolved "https://registry.npmjs.org/crc/-/crc-4.3.2.tgz#49b7821cbf2cf61dfd079ed93863bbebd5469b9a"
@@ -168,10 +173,10 @@ ethers@^6.9.1:
     tslib "2.4.0"
     ws "8.5.0"
 
-ethstorage-sdk@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.0.10.tgz#31fe05ef503606832d531ab5fda51313b78e8e22"
-  integrity sha512-3JKcoH8a6pO+QJ3zjnZzq1gzuyxB8fEdIwUEhkZjzBlHzcDgoZrDl+jpVYR+KC9swfMI8q9do2K+u1FPU2VKKQ==
+ethstorage-sdk@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.1.1.tgz#fd0b748c0703be603ba7507e09aedec1ce29f387"
+  integrity sha512-pn51UUe/hBKWxVy5Xa417hTtrEz96z/NnzGsKT1YURXyskAowT62mzHLRrHLWkI27iRYCRingC82dy0sXxfgNQ==
   dependencies:
     "@ethereumjs/common" "^4.1.0"
     "@ethereumjs/tx" "^5.1.0"
