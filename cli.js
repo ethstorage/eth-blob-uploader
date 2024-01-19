@@ -13,6 +13,9 @@ program
     .option('-t, --to <to>', 'to address')
     .option('-d, --data [data]', 'call data')
     .option('-c, --count [count]', 'blob count')
+    .option('-n, --nonce [nonce]', 'transaction nonce')
+    .option('-g, --gasPrice [gasPrice]', 'transaction gas price')
+    .option('-b, --blobPrice [blobPrice]', 'blob gas price')
     .action((rpc, privateKey, file, to, opts) => {
         rpc = rpc ?? opts.rpc;
         privateKey = privateKey ?? opts.privateKey;
@@ -34,7 +37,7 @@ program
             console.log(error("Invalid to address"));
             return;
         }
-        uploadToAddress(rpc, privateKey, file, to, opts.data, opts.count);
+        uploadToAddress(rpc, privateKey, file, to, opts.data, opts.count, opts.nonce, opts.gasPrice, opts.blobPrice);
     });
 
 program.parse(process.argv);

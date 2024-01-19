@@ -31,10 +31,13 @@ Required
 
 Optional
 
-| Short Name | Full Name | description                                     |   
-|------------|-----------|-------------------------------------------------|
-| -d         | --data    | Calldata for contract calls                     |
-| -c         | --count   | The number of blobs attached to the transaction |
+| Short Name | Full Name   | description                                     |   
+|------------|-------------|-------------------------------------------------|
+| -d         | --data      | Calldata for contract calls                     |
+| -c         | --count     | The number of blobs attached to the transaction |
+| -n         | --nonce     | Transaction nonce                               |
+| -g         | --gasPrice  | Transaction gas price                           |
+| -b         | --blobPrice | Blob gas price                                  |
 
 
 ## Command
@@ -58,6 +61,7 @@ eth-blob-uploader <rpc> <private-key> <file-path> <to-address> --data [calldata]
 eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b...
 eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -d 0xabc...
 eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -c 4
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -g 1000000000 -b 30000000000
 
 eth-blob-uploader http://65.109.115.36:8545/ 0xa... /User/a/b.jpg 0x13b...
 eth-blob-uploader http://65.109.115.36:8545/ 0xa... /User/a/b.jpg 0x13b... -d 0xxx... -c 6

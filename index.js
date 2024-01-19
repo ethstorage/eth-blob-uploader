@@ -32,7 +32,11 @@ async function isContract(rpc, to) {
   }
 }
 
-const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x", count = DEFAULT_COUNT) => {
+const uploadToAddress = async (
+    rpc, privateKey, filePath, toAddress,
+    data = "0x", count = DEFAULT_COUNT,
+    nonce, gasPrice, blobPrice
+) => {
   console.log(notice(`rpc=${rpc}`));
   console.log(notice(`privateKey=${privateKey}`));
   console.log(notice(`filePath=${filePath}`));
@@ -84,6 +88,16 @@ const uploadToAddress = async (rpc, privateKey, filePath, toAddress, data = "0x"
       data: data,
       value: cost * BigInt(blobs.length)
     };
+    if (nonce) {
+      tx.nonce = BigInt(nonce);
+    }
+    if (gasPrice) {
+      tx.maxFeePerGas = gasPrice;
+      tx.maxPriorityFeePerGas = gasPrice;
+    }
+    if(blobPrice) {
+      tx.maxFeePerBlobGas = blobPrice;
+    }
     let isSuccess = true;
     try {
       const hash = await uploader.sendTx(tx, blobArr);
