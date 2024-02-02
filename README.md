@@ -36,7 +36,7 @@ Optional
 | Short Name | Full Name   | description                                                                                                                         |   
 |------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | -d         | --data      | Calldata for contract calls                                                                                                         |
-| -v         | --vale      | The amount of ETH that will be sent per transaction. If a file has multiple transactions, the total ETH amount is "value * txCount" |
+| -v         | --value     | The amount of ETH that will be sent per transaction. If a file has multiple transactions, the total ETH amount is "value * txCount" |
 | -c         | --count     | The number of blobs attached to the transaction                                                                                     |
 | -n         | --nonce     | Transaction nonce                                                                                                                   |
 | -g         | --gasPrice  | Transaction gas price                                                                                                               |
