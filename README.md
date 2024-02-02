@@ -9,14 +9,14 @@ Globally:
 ```bash
 npm install -g eth-blob-uploader
 
-eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address>
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 ```
 
 Locally:
 ```bash
 npm install eth-blob-uploader
 
-npx eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address>
+npx eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 ```
 
 
@@ -45,16 +45,16 @@ Optional
 
 ## Command
 ```
-eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address>
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 
 // If you are calling a contract function, you need to bring calldata
-eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address> -d [calldata]
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -d [calldata]
 
 // You can set the eth that will be sent with each transaction via -v
-eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address> -v [value]
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -v [value]
 
 // You can specify the number of blobs uploaded in one transaction
-eth-blob-uploader upload -r <rpc> -p <private-key> -f <file-path> -t <to-address> -c [count]
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -c [count]
 
 // output: send hash 
 ```
@@ -62,10 +62,10 @@ Note: A file may contain n blobs and there will be n/3 transactions, so -v shoul
 
 ## Example
 ```
-eth-blob-uploader upload -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b...
-eth-blob-uploader upload -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -d 0xabc...00ac
-eth-blob-uploader upload -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -v 8912830000
-eth-blob-uploader upload -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -c 6
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b...
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -d 0xabc...00ac
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -v 8912830000
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -c 6
 ```
 <br/>
 
