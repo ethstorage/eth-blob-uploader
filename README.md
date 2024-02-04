@@ -8,13 +8,15 @@ With [npm](https://npmjs.org) do
 Globally:
 ```bash
 npm install -g eth-blob-uploader
-eth-blob-uploader <rpc> <private-key> <file-path> <to-address> -d [calldata] -c [blob-counts]
+
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 ```
 
 Locally:
 ```bash
 npm install eth-blob-uploader
-npx eth-blob-uploader <rpc> <private-key> <file-path> <to-address> -d [calldata] -c [blob-counts]
+
+npx eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 ```
 
 
@@ -31,40 +33,39 @@ Required
 
 Optional
 
-| Short Name | Full Name   | description                                     |   
-|------------|-------------|-------------------------------------------------|
-| -d         | --data      | Calldata for contract calls                     |
-| -c         | --count     | The number of blobs attached to the transaction |
-| -n         | --nonce     | Transaction nonce                               |
-| -g         | --gasPrice  | Transaction gas price                           |
-| -b         | --blobPrice | Blob gas price                                  |
+| Short Name | Full Name   | description                                                                                                                         |   
+|------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| -d         | --data      | Calldata for contract calls                                                                                                         |
+| -v         | --value     | The amount of ETH that will be sent per transaction. If a file has multiple transactions, the total ETH amount is "value * txCount" |
+| -c         | --count     | The number of blobs attached to the transaction                                                                                     |
+| -n         | --nonce     | Transaction nonce                                                                                                                   |
+| -g         | --gasPrice  | Transaction gas price                                                                                                               |
+| -b         | --blobPrice | Blob gas price                                                                                                                      |
 
 
 ## Command
 ```
-eth-blob-uploader --rpc <rpc> --privateKey <private-key> --file <file-path> --to <to-address>
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address>
 
 // If you are calling a contract function, you need to bring calldata
-eth-blob-uploader --rpc <rpc> --privateKey <private-key> --file <file-path> --to <to-address> --data [calldata]
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -d [calldata]
+
+// You can set the eth that will be sent with each transaction via -v
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -v [value]
 
 // You can specify the number of blobs uploaded in one transaction
-eth-blob-uploader --rpc <rpc> --privateKey <private-key> --file <file-path> --to <to-address> --data [calldata] --count [count]
-
-// You can also not specify specific parameters.
-eth-blob-uploader <rpc> <private-key> <file-path> <to-address> --data [calldata] --count [count]
+eth-blob-uploader -r <rpc> -p <private-key> -f <file-path> -t <to-address> -c [count]
 
 // output: send hash 
 ```
+Note: A file may contain n blobs and there will be n/3 transactions, so -v should not be the total ETH, but the number of each transaction.
 
 ## Example
 ```
-eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b...
-eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -d 0xabc...
-eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -c 4
-eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa... -f /User/a/b.jpg -t 0x13b... -g 1000000000 -b 30000000000
-
-eth-blob-uploader http://65.109.115.36:8545/ 0xa... /User/a/b.jpg 0x13b...
-eth-blob-uploader http://65.109.115.36:8545/ 0xa... /User/a/b.jpg 0x13b... -d 0xxx... -c 6
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b...
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -d 0xabc...00ac
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -v 8912830000
+eth-blob-uploader -r http://65.109.115.36:8545/ -p 0xa...a -f /User/a/b.jpg -t 0x13b... -c 6
 ```
 <br/>
 

@@ -8,20 +8,6 @@ const notice = color.blue;
 const MAX_BLOB_COUNT = 6;
 const DEFAULT_COUNT = 3;
 
-const flatDirectoryBlobAbi = [
-  "function upfrontPayment() external view returns (uint256)"
-];
-
-async function getStorageCost(rpc, to) {
-  const provider = new ethers.JsonRpcProvider(rpc);
-  const fileContract = new ethers.Contract(to, flatDirectoryBlobAbi, provider);
-  try {
-    return await fileContract.upfrontPayment();
-  } catch (e) {
-    return 0n;
-  }
-}
-
 async function isContract(rpc, to) {
   const provider = new ethers.JsonRpcProvider(rpc);
   try {
@@ -34,7 +20,7 @@ async function isContract(rpc, to) {
 
 const uploadToAddress = async (
     rpc, privateKey, filePath, toAddress,
-    data = "0x", count = DEFAULT_COUNT,
+    data = "0x", value = 0n, count = DEFAULT_COUNT,
     nonce, gasPrice, blobPrice
 ) => {
   console.log(notice(`rpc=${rpc}`));
@@ -42,21 +28,18 @@ const uploadToAddress = async (
   console.log(notice(`filePath=${filePath}`));
   console.log(notice(`toAddress=${toAddress}`));
   console.log(notice(`calldata=${data}`));
+  console.log(notice(`value=${value}`));
   console.log(notice(`count=${count}\n`));
 
   if (!ethers.isHexString(data)) {
     console.log(error("Invalid data"));
     return;
   }
-
-  let cost = 0n;
   if (await isContract(rpc, toAddress)) {
     if (data === "0x") {
       console.log(error("Contract calls must include the data parameter"));
       return;
     }
-    // send ethStorage need pay
-    cost = await getStorageCost(rpc, toAddress);
   }
 
   count = Number(count);
@@ -86,7 +69,7 @@ const uploadToAddress = async (
     const tx = {
       to: toAddress,
       data: data,
-      value: cost * BigInt(blobs.length)
+      value: BigInt(value)
     };
     if (nonce) {
       tx.nonce = BigInt(nonce);
@@ -119,9 +102,9 @@ const uploadToAddress = async (
   }
 
   console.log(notice("Total number of blobs:"), error(`${blobLength}`));
-  console.log(notice("Quantity uploaded this time:"), error(`${currentIndex}`));
+  console.log(notice("Number of blobs uploaded this time:"), error(`${currentIndex}`));
   if (blobLength > currentIndex) {
-    console.log(error(`The remaining amount: ${blobLength - currentIndex}`));
+    console.log(error(`Number of remaining blobs: ${blobLength - currentIndex}`));
   } else {
     console.log(notice(`File upload completed!!!`));
   }
