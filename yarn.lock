@@ -150,6 +150,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
+dotenv@^16.4.5:
+  version "16.4.5"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
+
 ethereum-cryptography@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/ethereum-cryptography/-/ethereum-cryptography-2.1.2.tgz#18fa7108622e56481157a5cb7c01c0c6a672eb67"
@@ -173,15 +178,16 @@ ethers@^6.9.1:
     tslib "2.4.0"
     ws "8.5.0"
 
-ethstorage-sdk@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.1.2.tgz#dc551f2193584411646a4e0eca397a4dc6b604ad"
-  integrity sha512-jUBNOR+/qd1CO/bxwuf9JxI+B5NvVe/drqCykFlKsR7Js+HfxJ6s0p5BLI8LMA0DKWJ9FFfinCRk+1cpowj1XA==
+ethstorage-sdk@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.npmjs.org/ethstorage-sdk/-/ethstorage-sdk-1.1.6.tgz#c5d0db2eb0f0e4d36a473d80eada715d76b5610d"
+  integrity sha512-oAExKESWbwWVHEzS3c6reWh49JKG0mguVYH0mZRkXrw8fhqw5shxgsi9X+PRjpxXgOjWw1RnavMTgV3C8sqZNQ==
   dependencies:
     "@ethereumjs/common" "^4.1.0"
     "@ethereumjs/tx" "^5.1.0"
     axios "^1.4.0"
     c-kzg "^2.1.2"
+    dotenv "^16.4.5"
     ethers "^6.9.1"
 
 file-uri-to-path@1.0.0:

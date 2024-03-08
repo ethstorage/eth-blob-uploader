@@ -1,6 +1,6 @@
 {
   "name": "eth-blob-uploader",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "eip-4844 blobs upload tool",
   "main": "index.js",
   "author": "ethstorage",
@@ -9,7 +9,7 @@
     "colors-cli": "^1.0.33",
     "commander": "^11.1.0",
     "ethers": "^6.9.1",
-    "ethstorage-sdk": "^1.1.2",
+    "ethstorage-sdk": "^1.1.6",
     "minimist": "^1.2.8"
   },
   "repository": {
